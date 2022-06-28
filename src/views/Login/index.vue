@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="登录">
+    <van-nav-bar title="登录" @click-left="$router.back()">
       <!-- <van-icon name="cross" slot="left" /> 第一种写法 -->
       <template #left>
         <van-icon name="cross" />
@@ -28,7 +28,8 @@
           { pattern: /^\d{6}$/, message: '验证码必须是6位' },
         ]"
       >
-        <i class="toutiao toutiao-yanzhengma" slot="left-icon"></i>
+        <!-- <i class="toutiao toutiao-yanzhengma" slot="left-icon"></i> -->
+        <MyIcon name="yanzhengma" slot="left-icon"></MyIcon>
         <template #button>
           <van-count-down
             v-if="isCountDownShow"
@@ -75,6 +76,7 @@ export default {
         console.log(res)
         // 将token 传递到vuex里面进行保存
         this.$store.commit('setUser', res.data.data)
+        this.$router.push({ name: 'my' })
       } catch (err) {
         console.log(err)
       }
