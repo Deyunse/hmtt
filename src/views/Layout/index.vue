@@ -1,8 +1,11 @@
 <template>
-  <div >
-    <router-view class="main"/>
+  <div>
+    <!-- 默认让home页面有缓存 -->
+    <keep-alive :include="['Home']">
+      <router-view class="main" />
+    </keep-alive>
 
-    <van-tabbar route >
+    <van-tabbar route>
       <van-tabbar-item replace to="/home" icon="home-o">
         首页
         <template #icon>
@@ -46,6 +49,6 @@ export default {
 }
 .main {
   margin-bottom: 100px;
-  background-color: #F5F7F9;
+  background-color: #f5f7f9;
 }
 </style>

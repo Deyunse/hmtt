@@ -63,7 +63,7 @@ export default {
   created () { },
   data () {
     return {
-      mobile: '13911111111', // 手机号
+      mobile: '16683179887', // 手机号
       code: '246810', // 短信验证码
       time: 5 * 1000, // 倒计时时间
       isCountDownShow: false // 默认不显示倒计时效果
@@ -73,7 +73,7 @@ export default {
     async onSubmit (values) {
       try {
         const res = await login(values)
-        console.log(res)
+        // console.log(res)
         // 将token 传递到vuex里面进行保存
         this.$store.commit('setUser', res.data.data)
         this.$router.push({ name: 'my' })
@@ -93,7 +93,7 @@ export default {
           this.$toast.fail('发送失败，稍后重试')
         }
       } catch (err) {
-        console.log('校验失败')
+        // console.log('校验失败')
         this.$toast.fail('手机格式不正确') // 轻提示 手机号错误时
       }
     }
