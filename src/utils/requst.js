@@ -11,7 +11,7 @@ instance.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
   if (store.state.user && store.state.user.token) {
     config.headers = {
-      Authorization: 'Bearer ' + store.state.user
+      Authorization: 'Bearer ' + store.state.user.token
     }
   }
   return config

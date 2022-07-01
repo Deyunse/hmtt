@@ -6,6 +6,7 @@ const My = () => import('@/views/My')
 const Home = () => import('@/views/Home')
 const Question = () => import('@/views/Question')
 const Login = () => import('@/views/Login')
+const Search = () => import('@/views/Search')
 Vue.use(VueRouter)
 
 const routes = [
@@ -21,7 +22,7 @@ const routes = [
       { path: 'my', name: 'my', component: My }
     ]
   },
-  { path: '/login', component: Login }
+  { path: '/login', component: Login }, { path: '/search', component: Search }
 ]
 
 const router = new VueRouter({

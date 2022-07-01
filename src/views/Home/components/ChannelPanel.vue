@@ -47,7 +47,9 @@
 </template>
 
 <script>
-import { getAllArticleList } from '@/api/home'
+import { getAllArticleList, saveChannels } from '@/api/home'
+import { setItem } from '@/utils/storage'
+const CHANNELS = 'CHANNELS'
 export default {
   name: 'ChannelsPanel',
   props: {
@@ -92,6 +94,7 @@ export default {
     },
     onClick (index) {
       if (this.isCloseShow) {
+        if (index === 0) return
         // 删除
         const obj = this.channels[index]
         this.channels.splice(index, 1)
@@ -106,7 +109,31 @@ export default {
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    channels: {
+      async handler (newVal) {
+        console.log(123)
+        if (this.$store.state.user && this.$store.state.user.token) {
+          // 登录过
+          const arr = []
+          newVal.forEach((item, index) => {
+            arr.push({ id: item.id, seq: index })
+          })
+          console.log(arr)
+          // 先把数据处理
+          try {
+            const res = await saveChannels(arr)
+            console.log(res)
+          } catch (err) {
+            console.log(err)
+          }
+        } else {
+          setItem(CHANNELS, newVal)
+        }
+      },
+      deep: true
+    }
+  },
   filters: {},
   components: {}
 }

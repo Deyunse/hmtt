@@ -73,7 +73,7 @@ export default {
     async onSubmit (values) {
       try {
         const res = await login(values)
-        // console.log(res)
+        console.log(res)
         // 将token 传递到vuex里面进行保存
         this.$store.commit('setUser', res.data.data)
         this.$router.push({ name: 'my' })

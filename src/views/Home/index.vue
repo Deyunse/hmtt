@@ -39,6 +39,8 @@
 import ChannelPanel from './components/ChannelPanel.vue'
 import AticleList from '@/components/AticleList.vue'
 import { getMyChannels } from '@/api/home'
+import { getItem } from '@/utils/storage'
+const CHANNELS = 'CHANNELS'
 export default {
   name: 'Home',
   created () {
@@ -52,18 +54,27 @@ export default {
     }
   },
   methods: {
+    // 1、没有登录第一次打开app，本地存储为空就发送ajax请求数
+    // 2、没有登录，但是第二打开，有可能频道被编辑过，或者删除过、这样的话本地存储就有值，就去本地存储区拿
+    // 3、有登录就直接ajax拿
+    // 先判断 token 如果有token 去ajax中拿，然后判断本地存储有没有channels数据，如果没有 就从Ajax拿
     async getMyChannel () {
-      try {
-        const res = await getMyChannels()
-        // console.log(res)
-        this.channels = res.data.data.channels
-      } catch (err) {
-        console.log(err)
+      const channels = getItem(CHANNELS)
+      if (!(this.$store.state.user && this.$store.state.user.token) && channels) {
+        this.channels = channels
+      } else {
+        try {
+          const res = await getMyChannels()
+          // console.log(res)
+          this.channels = res.data.data.channels
+        } catch (err) {
+          console.log(err)
+        }
       }
     }
   },
   computed: {},
-  watch: {},
+
   filters: {},
   components: { AticleList, ChannelPanel }
 }
