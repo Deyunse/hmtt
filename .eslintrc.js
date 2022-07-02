@@ -16,5 +16,6 @@ module.exports = {
     'vue/multi-word-component-names': 0,
     'vue/no-mutating-props': 0,
     'prefer-const': 0
+
   }
 }
